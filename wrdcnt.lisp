@@ -1,0 +1,10 @@
+(defun letter-freq (file)
+  (with-open-file (stream file)
+    (let ((str (make-string (file-length stream)))
+          (ht (make-hash-table)))
+      (read-sequence str stream)
+      (loop :for char :across str :do
+        (incf (gethash char ht 0)))
+      (maphash (lambda (k v)
+                 (format t "~@C: ~D~%" k v))
+               ht)))) 
